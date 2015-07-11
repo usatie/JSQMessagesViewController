@@ -58,7 +58,9 @@
     XCTAssertNotNil([UIImage jsq_bubbleCompactTaillessImage]);
     
     XCTAssertNotNil([UIImage jsq_defaultAccessoryImage]);
-    
+
+    XCTAssertNotNil([UIImage jsq_defaultAdditionalLeftImage]);
+
     XCTAssertNotNil([UIImage jsq_defaultTypingIndicatorImage]);
     
     XCTAssertNotNil([UIImage jsq_defaultPlayImage]);

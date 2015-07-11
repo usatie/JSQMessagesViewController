@@ -316,6 +316,11 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     NSAssert(NO, @"Error! required method not implemented in subclass. Need to implement %s", __PRETTY_FUNCTION__);
 }
 
+- (void)didPressAdditionalLeftButton:(UIButton *)sender
+{
+    NSAssert(NO, @"Error! required method not implemented in subclass. Need to implement %s", __PRETTY_FUNCTION__);
+}
+
 - (void)finishSendingMessage
 {
     [self finishSendingMessageAnimated:YES];
@@ -659,6 +664,11 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
                senderDisplayName:self.senderDisplayName
                             date:[NSDate date]];
     }
+}
+
+- (void)messagesInputToolbar:(JSQMessagesInputToolbar *)toolbar didPressAdditionalLeftBarButton:(UIButton *)sender
+{
+    [self didPressAdditionalLeftButton:sender];
 }
 
 - (void)messagesInputToolbar:(JSQMessagesInputToolbar *)toolbar didPressRightBarButton:(UIButton *)sender

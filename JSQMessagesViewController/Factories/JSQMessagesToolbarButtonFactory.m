@@ -42,6 +42,23 @@
     return accessoryButton;
 }
 
++ (UIButton *)defaultAdditionalLeftButtonItem
+{
+    UIImage *additionalLeftImage = [UIImage jsq_defaultAdditionalLeftImage];
+    UIImage *normalImage = [additionalLeftImage jsq_imageMaskedWithColor:[UIColor lightGrayColor]];
+    UIImage *highlightedImage = [additionalLeftImage jsq_imageMaskedWithColor:[UIColor darkGrayColor]];
+    
+    UIButton *additionalLeftButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, additionalLeftImage.size.width, 32.0f)];
+    [additionalLeftButton setImage:normalImage forState:UIControlStateNormal];
+    [additionalLeftButton setImage:highlightedImage forState:UIControlStateHighlighted];
+    
+    additionalLeftButton.contentMode = UIViewContentModeScaleAspectFit;
+    additionalLeftButton.backgroundColor = [UIColor clearColor];
+    additionalLeftButton.tintColor = [UIColor lightGrayColor];
+    
+    return additionalLeftButton;
+}
+
 + (UIButton *)defaultSendButtonItem
 {
     NSString *sendTitle = [NSBundle jsq_localizedStringForKey:@"send"];

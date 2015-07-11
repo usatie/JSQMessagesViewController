@@ -65,6 +65,7 @@
  *  @return The default input toolbar accessory image.
  */
 + (UIImage *)jsq_defaultAccessoryImage;
++ (UIImage *)jsq_defaultAdditionalLeftImage;
 
 /**
  *  @return The default typing indicator image.

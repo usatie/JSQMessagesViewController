@@ -327,6 +327,10 @@
     [sheet showFromToolbar:self.inputToolbar];
 }
 
+- (void)didPressAdditionalLeftButton:(UIButton *)sender
+{
+    NSLog(@"finally reached additional left button!");
+}
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == actionSheet.cancelButtonIndex) {

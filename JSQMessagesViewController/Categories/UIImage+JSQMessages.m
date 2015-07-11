@@ -90,6 +90,11 @@
     return [UIImage jsq_bubbleImageFromBundleWithName:@"clip"];
 }
 
++ (UIImage *)jsq_defaultAdditionalLeftImage
+{
+    return [UIImage jsq_bubbleImageFromBundleWithName:@"smiling_face"];
+}
+
 + (UIImage *)jsq_defaultTypingIndicatorImage
 {
     return [UIImage jsq_bubbleImageFromBundleWithName:@"typing"];

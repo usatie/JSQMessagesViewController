@@ -34,4 +34,10 @@
     XCTAssertNotNil(button, @"Button should not be nil");
 }
 
+- (void)testDefaultAdditionalLeftButtonItem
+{
+    UIButton *button = [JSQMessagesToolbarButtonFactory defaultAdditionalLeftButtonItem];
+    XCTAssertNotNil(button, @"Button should not be nil");
+}
+
 @end
