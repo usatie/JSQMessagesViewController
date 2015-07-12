@@ -268,4 +268,8 @@
  */
 - (void)scrollToBottomAnimated:(BOOL)animated;
 
+#pragma mark Stamp View
+- (void)dismissStampView;
+- (void)presentStampView;
+
 @end
