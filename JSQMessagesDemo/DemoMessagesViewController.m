@@ -327,10 +327,10 @@
     [sheet showFromToolbar:self.inputToolbar];
 }
 
-//- (void)didPressAdditionalLeftButton:(UIButton *)sender
-//{
-//    NSLog(@"finally reached additional left button!");
-//}
+- (void)didPressAdditionalLeftButton:(UIButton *)sender
+{
+    NSLog(@"finally reached additional left button!");
+}
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == actionSheet.cancelButtonIndex) {
@@ -611,25 +611,25 @@
 
 #pragma mark - Responding to collection view tap events
 
-- (void)collectionView:(JSQMessagesCollectionView *)collectionView
-                header:(JSQMessagesLoadEarlierHeaderView *)headerView didTapLoadEarlierMessagesButton:(UIButton *)sender
-{
-    NSLog(@"Load earlier messages!");
-}
+//- (void)collectionView:(JSQMessagesCollectionView *)collectionView
+//                header:(JSQMessagesLoadEarlierHeaderView *)headerView didTapLoadEarlierMessagesButton:(UIButton *)sender
+//{
+//    NSLog(@"Load earlier messages!");
+//}
+//
+//- (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapAvatarImageView:(UIImageView *)avatarImageView atIndexPath:(NSIndexPath *)indexPath
+//{
+//    NSLog(@"Tapped avatar!");
+//}
+//
+//- (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    NSLog(@"Tapped message bubble!");
+//}
 
-- (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapAvatarImageView:(UIImageView *)avatarImageView atIndexPath:(NSIndexPath *)indexPath
-{
-    NSLog(@"Tapped avatar!");
-}
-
-- (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSLog(@"Tapped message bubble!");
-}
-
-- (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapCellAtIndexPath:(NSIndexPath *)indexPath touchLocation:(CGPoint)touchLocation
-{
-    NSLog(@"Tapped cell at %@!", NSStringFromCGPoint(touchLocation));
-}
+//- (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapCellAtIndexPath:(NSIndexPath *)indexPath touchLocation:(CGPoint)touchLocation
+//{
+//    NSLog(@"Tapped cell at %@!", NSStringFromCGPoint(touchLocation));
+//}
 
 @end

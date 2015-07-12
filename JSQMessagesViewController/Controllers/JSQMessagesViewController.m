@@ -323,84 +323,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)didPressAdditionalLeftButton:(UIButton *)sender
 {
-//    NSAssert(NO, @"Error! required method not implemented in subclass. Need to implement %s", __PRETTY_FUNCTION__);
-    NSLog(@"stamp view appears!");
-    CGFloat originY = self.stampView.frame.origin.y;
-    CGFloat width = self.stampView.frame.size.width;
-    CGFloat height = self.stampView.frame.size.height;
-    
-    CGRect stampViewFrame = self.stampView.frame;
-    CGRect toolBarFrame =     self.inputToolbar.frame;
-    CGRect collectionFrame = self.collectionView.frame;
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-
-    if (self.isStampViewVisible) {
-        NSLog(@"already here/");
-        if (self.keyboardController.keyboardIsVisible) {
-            NSLog(@"keyboard is visible");
-            //resign keyboard
-            [UIView setAnimationDuration:0.0f];
-            [self.inputToolbar.contentView.textView resignFirstResponder];
-        } else {
-            NSLog(@"no key board. should dismiss stamp view!");
-            self.isStampViewVisible = NO;
-            [UIView setAnimationDuration:0.3f];
-            
-            //resign stampview
-            stampViewFrame.origin.y += height;
-            self.stampView.frame = stampViewFrame;
-            
-            //move toolbar
-            toolBarFrame.origin.y += height;
-            self.inputToolbar.frame = toolBarFrame;
-            
-            //resize and scroll collectionview
-            collectionFrame.size.height += height;
-            self.collectionView.frame = collectionFrame;
-            
-        }
-    } else {
-        self.isStampViewVisible = YES;
-        if (self.keyboardController.keyboardIsVisible) {
-            NSLog(@"keyboard is visible");
-            CGFloat keyboardHeight = self.keyboardController.currentKeyboardFrame.size.height;
-            [UIView setAnimationDuration:0.0f];
-            
-            //resign keyboard
-            [self.inputToolbar.contentView.textView resignFirstResponder];
-            
-            //stay toolbar
-            self.inputToolbar.frame = toolBarFrame;
-            
-            //appear stamp view
-            self.stampView.frame = CGRectMake(0, toolBarFrame.origin.y+toolBarFrame.size.height, width, keyboardHeight);
-            
-            //stay collectin view
-            collectionFrame.size.height -= keyboardHeight;
-            self.collectionView.frame = collectionFrame;
-            CGRect stampViewRect = [self.collectionView convertRect:self.stampView.bounds fromView:self.inputToolbar];
-            [self.collectionView scrollRectToVisible:stampViewRect animated:NO];
-            
-        } else {
-            [UIView setAnimationDuration:0.3f];
-            
-            //stamp view appear
-            self.stampView.frame = CGRectMake(0, originY-height, width, height);
-            
-            //move tool bar
-            toolBarFrame = CGRectMake(0, toolBarFrame.origin.y-height, toolBarFrame.size.width, toolBarFrame.size.height);
-            self.inputToolbar.frame = toolBarFrame;
-            
-            //    //scroll collection view
-            collectionFrame.size.height -= height;
-            self.collectionView.frame = collectionFrame;
-            CGRect stampViewRect = [self.collectionView convertRect:self.stampView.bounds fromView:self.inputToolbar];
-            [self.collectionView scrollRectToVisible:stampViewRect animated:NO];
-        }
-    }
-    [UIView commitAnimations];
+    NSAssert(NO, @"Error! required method not implemented in subclass. Need to implement %s", __PRETTY_FUNCTION__);
 }
 
 - (void)finishSendingMessage
@@ -724,13 +647,143 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView
  didTapAvatarImageView:(UIImageView *)avatarImageView
-           atIndexPath:(NSIndexPath *)indexPath { }
+           atIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"didTapAvatarImageView");
+    [self dismissStampView];
+}
 
-- (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath { }
+- (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"didTapMessageBubbleAtIndexPath");
+    [self dismissStampView];
+}
 
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView
  didTapCellAtIndexPath:(NSIndexPath *)indexPath
-         touchLocation:(CGPoint)touchLocation { }
+         touchLocation:(CGPoint)touchLocation {
+    NSLog(@"didTapCellAtIndexPath");
+    [self dismissStampView];
+}
+
+#pragma mark StampView method
+- (void)dismissStampView
+{
+    CGFloat height = self.stampView.frame.size.height;
+    
+    CGRect stampViewFrame = self.stampView.frame;
+    CGRect toolBarFrame =     self.inputToolbar.frame;
+    CGRect collectionFrame = self.collectionView.frame;
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    
+    if (self.isStampViewVisible) {
+        if (self.keyboardController.keyboardIsVisible) {
+            self.isStampViewVisible = NO;
+            //resign keyboard
+            [UIView setAnimationDuration:0.3f];
+            [self.inputToolbar.contentView.textView resignFirstResponder];
+            
+            //resign stampview
+            stampViewFrame.origin.y += height;
+            self.stampView.frame = stampViewFrame;
+            
+            //move toolbar
+            toolBarFrame.origin.y += height;
+            self.inputToolbar.frame = toolBarFrame;
+            
+            //resize and scroll collectionview
+            collectionFrame.size.height += height;
+            self.collectionView.frame = collectionFrame;
+            
+        } else {
+            self.isStampViewVisible = NO;
+            [UIView setAnimationDuration:0.3f];
+            
+            //resign stampview
+            stampViewFrame.origin.y += height;
+            self.stampView.frame = stampViewFrame;
+            
+            //move toolbar
+            toolBarFrame.origin.y += height;
+            self.inputToolbar.frame = toolBarFrame;
+            
+            //resize and scroll collectionview
+            collectionFrame.size.height += height;
+            self.collectionView.frame = collectionFrame;
+            
+        }
+    } else {
+        if (self.keyboardController.keyboardIsVisible) {
+            NSLog(@"keyboard is visible");
+            //resign keyboard
+            [self.inputToolbar.contentView.textView resignFirstResponder];
+        }
+    }
+    [UIView commitAnimations];
+}
+
+- (void)presentStampView
+{
+    NSLog(@"stamp view appears!");
+    CGFloat originY = self.stampView.frame.origin.y;
+    CGFloat width = self.stampView.frame.size.width;
+    CGFloat height = self.stampView.frame.size.height;
+    
+    CGRect toolBarFrame =     self.inputToolbar.frame;
+    CGRect collectionFrame = self.collectionView.frame;
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    
+    if (self.isStampViewVisible) {
+        NSLog(@"already here/");
+        if (self.keyboardController.keyboardIsVisible) {
+            NSLog(@"keyboard is visible");
+            //resign keyboard
+            [UIView setAnimationDuration:0.0f];
+            [self.inputToolbar.contentView.textView resignFirstResponder];
+        }
+    } else {
+        self.isStampViewVisible = YES;
+        if (self.keyboardController.keyboardIsVisible) {
+            NSLog(@"keyboard is visible");
+            CGFloat keyboardHeight = self.keyboardController.currentKeyboardFrame.size.height;
+            [UIView setAnimationDuration:0.0f];
+            
+            //resign keyboard
+            [self.inputToolbar.contentView.textView resignFirstResponder];
+            
+            //stay toolbar
+            self.inputToolbar.frame = toolBarFrame;
+            
+            //appear stamp view
+            self.stampView.frame = CGRectMake(0, toolBarFrame.origin.y+toolBarFrame.size.height, width, keyboardHeight);
+            
+            //stay collectin view
+            collectionFrame.size.height -= keyboardHeight;
+            self.collectionView.frame = collectionFrame;
+            CGRect stampViewRect = [self.collectionView convertRect:self.stampView.bounds fromView:self.inputToolbar];
+            [self.collectionView scrollRectToVisible:stampViewRect animated:NO];
+            
+        } else {
+            [UIView setAnimationDuration:0.3f];
+            
+            //stamp view appear
+            self.stampView.frame = CGRectMake(0, originY-height, width, height);
+            
+            //move tool bar
+            toolBarFrame = CGRectMake(0, toolBarFrame.origin.y-height, toolBarFrame.size.width, toolBarFrame.size.height);
+            self.inputToolbar.frame = toolBarFrame;
+            
+            //    //scroll collection view
+            collectionFrame.size.height -= height;
+            self.collectionView.frame = collectionFrame;
+            CGRect stampViewRect = [self.collectionView convertRect:self.stampView.bounds fromView:self.inputToolbar];
+            [self.collectionView scrollRectToVisible:stampViewRect animated:NO];
+        }
+    }
+    [UIView commitAnimations];
+}
 
 #pragma mark - Input toolbar delegate
 
@@ -750,6 +803,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)messagesInputToolbar:(JSQMessagesInputToolbar *)toolbar didPressAdditionalLeftBarButton:(UIButton *)sender
 {
+    [self presentStampView];
     [self didPressAdditionalLeftButton:sender];
 }
 
