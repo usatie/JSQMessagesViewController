@@ -153,6 +153,8 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
                                                                           contextView:self.view
                                                                  panGestureRecognizer:self.collectionView.panGestureRecognizer
                                                                              delegate:self];
+    
+    self.stampView;
 }
 
 - (void)dealloc
@@ -216,7 +218,6 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     [[[self class] nib] instantiateWithOwner:self options:nil];
 
     [self jsq_configureMessagesViewController];
@@ -455,8 +456,6 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"VC cellfor index path = %@",indexPath);
-
     id<JSQMessageData> messageItem = [collectionView.dataSource collectionView:collectionView messageDataForItemAtIndexPath:indexPath];
     NSParameterAssert(messageItem != nil);
 

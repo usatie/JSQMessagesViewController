@@ -5,30 +5,31 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JSQMessagesStampCollectionViewCell">
-            <connections>
-                <outlet property="stampLabel" destination="GIC-c3-tmI" id="jZt-0I-FYU"/>
-            </connections>
-        </placeholder>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX">
-            <rect key="frame" x="0.0" y="0.0" width="49" height="50"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="49" height="50"/>
-                <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GIC-c3-tmI">
-                        <rect key="frame" x="13" y="18" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            </view>
+        <view contentMode="scaleToFill" id="c2O-CZ-A2l" customClass="JSQMessagesStampCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QIQ-dK-xXT">
+                    <rect key="frame" x="4" y="14" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
             <color key="backgroundColor" red="0.40000000000000002" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-            <size key="customSize" width="49" height="50"/>
-            <point key="canvasLocation" x="-102.5" y="481"/>
-        </collectionViewCell>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="QIQ-dK-xXT" secondAttribute="trailing" constant="4" id="6GQ-1u-Xxp"/>
+                <constraint firstAttribute="centerY" secondItem="QIQ-dK-xXT" secondAttribute="centerY" id="Yzh-bi-nbW"/>
+                <constraint firstAttribute="centerX" secondItem="QIQ-dK-xXT" secondAttribute="centerX" id="cqz-uP-69T"/>
+                <constraint firstItem="QIQ-dK-xXT" firstAttribute="leading" secondItem="c2O-CZ-A2l" secondAttribute="leading" constant="4" id="iqc-OU-RwM"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="stampLabel" destination="QIQ-dK-xXT" id="CYg-2o-Rpm"/>
+            </connections>
+            <point key="canvasLocation" x="126" y="482"/>
+        </view>
     </objects>
 </document>

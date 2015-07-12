@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JSQMessagesStampCollectionViewCell.h"
 
 @interface JSQMessagesStampView:UIView <UICollectionViewDataSource,UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *stampCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *stampCollectionViewFlowLayout;
-
+@property NSArray *stampCellArray;
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "JSQMessagesStampView.h"
-#import "JSQMessagesStampCollectionViewCell.h"
 @interface JSQMessagesStampView()
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @end
@@ -22,9 +21,6 @@
 
 - (void)commonInit {
     NSLog(@"commonInit");
-    [self.stampCollectionViewFlowLayout setItemSize:CGSizeMake(320, 216)];
-    [self.stampCollectionView registerNib:[JSQMessagesStampCollectionViewCell nib] forCellWithReuseIdentifier:[JSQMessagesStampCollectionViewCell cellReuseIdentifier]];
-
     NSString* className = NSStringFromClass([self class]);
     [[NSBundle bundleForClass:[self class]] loadNibNamed:className owner:self options:nil];
     
@@ -69,6 +65,11 @@
 {
     [super awakeFromNib];
     NSLog(@"awakeFromNib stamp view");
+    NSLog(@"frame = %@",NSStringFromCGRect(self.frame));
+    NSLog(@"width = %f",self.frame.size.width/3);
+    [self.stampCollectionViewFlowLayout setItemSize:CGSizeMake(self.frame.size.width/3+5, self.frame.size.height/2-15)];
+    [self.stampCollectionView registerNib:[JSQMessagesStampCollectionViewCell nib] forCellWithReuseIdentifier:[JSQMessagesStampCollectionViewCell cellReuseIdentifier]];
+
 //    [self commonInit];
 }
 
@@ -76,7 +77,7 @@
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     NSLog(@"numberOfSectionsInCollectionView");
-    return 5;
+    return 3;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -84,27 +85,30 @@
     NSLog(@"numberOfItemsInSection");
     if (section == 0) {
         NSLog(@"section = 0");
-        return 3;
+        return 6;
     } else {
         NSLog(@"section is not 0");
-        return 4;
+        return 6;
     }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"cell for item at index path");
-//    NSString *cellIdentifier = @"JSQMessagesStampCollectionViewCell";
     JSQMessagesStampCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[JSQMessagesStampCollectionViewCell cellReuseIdentifier] forIndexPath:indexPath];
-    NSLog(@"cell = %@",cell);
+    cell.stampLabel.text = @"stamp";
     
     if (indexPath.section == 0) {
-        cell.backgroundColor = [UIColor redColor];
-        cell.stampLabel.text = @"sample";
+//        cell.backgroundColor = [UIColor redColor];
     } else {
-        cell.backgroundColor = [UIColor grayColor];
+//        cell.backgroundColor = [UIColor grayColor];
     }
     return cell;
 }
 
+#pragma mark collection view delegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"index %@ is selected",indexPath);
+}
 @end
