@@ -17,5 +17,18 @@
     // Drawing code
 }
 */
+//+ (UINib *)nib
+//{
+//    return [UINib nibWithNibName:NSStringFromClass([JSQMessagesStampView class])
+//                          bundle:[NSBundle bundleForClass:[JSQMessagesStampView class]]];
+//}
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    NSLog(@"awakeFromNib stamp view");
+    self.backgroundColor = [UIColor orangeColor];
+}
+
 
 @end

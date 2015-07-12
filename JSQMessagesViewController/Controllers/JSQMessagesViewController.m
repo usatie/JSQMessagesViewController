@@ -24,6 +24,8 @@
 #import "JSQMessageBubbleImageDataSource.h"
 #import "JSQMessageAvatarImageDataSource.h"
 
+#import "JSQMessagesStampView.h"
+
 #import "JSQMessagesCollectionViewCellIncoming.h"
 #import "JSQMessagesCollectionViewCellOutgoing.h"
 
@@ -51,6 +53,9 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 @property (weak, nonatomic) IBOutlet JSQMessagesCollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet JSQMessagesInputToolbar *inputToolbar;
+@property (weak, nonatomic) IBOutlet JSQMessagesStampView *stampView;
+
+@property (assign,nonatomic) BOOL isStampViewVisible;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarBottomLayoutGuide;
@@ -318,7 +323,84 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)didPressAdditionalLeftButton:(UIButton *)sender
 {
-    NSAssert(NO, @"Error! required method not implemented in subclass. Need to implement %s", __PRETTY_FUNCTION__);
+//    NSAssert(NO, @"Error! required method not implemented in subclass. Need to implement %s", __PRETTY_FUNCTION__);
+    NSLog(@"stamp view appears!");
+    CGFloat originY = self.stampView.frame.origin.y;
+    CGFloat width = self.stampView.frame.size.width;
+    CGFloat height = self.stampView.frame.size.height;
+    
+    CGRect stampViewFrame = self.stampView.frame;
+    CGRect toolBarFrame =     self.inputToolbar.frame;
+    CGRect collectionFrame = self.collectionView.frame;
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+
+    if (self.isStampViewVisible) {
+        NSLog(@"already here/");
+        if (self.keyboardController.keyboardIsVisible) {
+            NSLog(@"keyboard is visible");
+            //resign keyboard
+            [UIView setAnimationDuration:0.0f];
+            [self.inputToolbar.contentView.textView resignFirstResponder];
+        } else {
+            NSLog(@"no key board. should dismiss stamp view!");
+            self.isStampViewVisible = NO;
+            [UIView setAnimationDuration:0.3f];
+            
+            //resign stampview
+            stampViewFrame.origin.y += height;
+            self.stampView.frame = stampViewFrame;
+            
+            //move toolbar
+            toolBarFrame.origin.y += height;
+            self.inputToolbar.frame = toolBarFrame;
+            
+            //resize and scroll collectionview
+            collectionFrame.size.height += height;
+            self.collectionView.frame = collectionFrame;
+            
+        }
+    } else {
+        self.isStampViewVisible = YES;
+        if (self.keyboardController.keyboardIsVisible) {
+            NSLog(@"keyboard is visible");
+            CGFloat keyboardHeight = self.keyboardController.currentKeyboardFrame.size.height;
+            [UIView setAnimationDuration:0.0f];
+            
+            //resign keyboard
+            [self.inputToolbar.contentView.textView resignFirstResponder];
+            
+            //stay toolbar
+            self.inputToolbar.frame = toolBarFrame;
+            
+            //appear stamp view
+            self.stampView.frame = CGRectMake(0, toolBarFrame.origin.y+toolBarFrame.size.height, width, keyboardHeight);
+            
+            //stay collectin view
+            collectionFrame.size.height -= keyboardHeight;
+            self.collectionView.frame = collectionFrame;
+            CGRect stampViewRect = [self.collectionView convertRect:self.stampView.bounds fromView:self.inputToolbar];
+            [self.collectionView scrollRectToVisible:stampViewRect animated:NO];
+            
+        } else {
+            [UIView setAnimationDuration:0.3f];
+            
+            //stamp view appear
+            self.stampView.frame = CGRectMake(0, originY-height, width, height);
+            
+            //move tool bar
+            toolBarFrame = CGRectMake(0, toolBarFrame.origin.y-height, toolBarFrame.size.width, toolBarFrame.size.height);
+            self.inputToolbar.frame = toolBarFrame;
+            
+            //    //scroll collection view
+            collectionFrame.size.height -= height;
+            self.collectionView.frame = collectionFrame;
+            CGRect stampViewRect = [self.collectionView convertRect:self.stampView.bounds fromView:self.inputToolbar];
+            [self.collectionView scrollRectToVisible:stampViewRect animated:NO];
+        }
+    }
+    [UIView commitAnimations];
 }
 
 - (void)finishSendingMessage

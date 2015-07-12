@@ -265,6 +265,7 @@ typedef void (^JSQAnimationCompletionBlock)(BOOL finished);
 
 - (void)jsq_resetKeyboardAndTextView
 {
+    NSLog(@"jsq_resetKeyboardAndTextView");
     [self jsq_setKeyboardViewHidden:YES];
     [self jsq_removeKeyboardFrameObserver];
     [self.textView resignFirstResponder];
