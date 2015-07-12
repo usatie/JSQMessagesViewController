@@ -8,8 +8,11 @@
 
 #import "JSQMessagesStampView.h"
 
+@interface JSQMessagesStampView()
+@property (strong, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@end
 @implementation JSQMessagesStampView
-
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -17,17 +20,48 @@
     // Drawing code
 }
 */
-//+ (UINib *)nib
-//{
-//    return [UINib nibWithNibName:NSStringFromClass([JSQMessagesStampView class])
-//                          bundle:[NSBundle bundleForClass:[JSQMessagesStampView class]]];
-//}
 
+- (void)commonInit {
+    NSString* className = NSStringFromClass([self class]);
+    [[NSBundle bundleForClass:[self class]] loadNibNamed:className owner:self options:nil];
+    
+    self.contentView.frame = self.bounds;
+    [self addSubview:self.contentView];
+}
+
+- (instancetype)init {
+    self = [super init];
+    
+    if (self) {
+        [self commonInit];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    
+    if (self) {
+        [self commonInit];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    
+    if (self) {
+        [self commonInit];
+    }
+    
+    return self;
+}
 - (void)awakeFromNib
 {
     [super awakeFromNib];
     NSLog(@"awakeFromNib stamp view");
-    self.backgroundColor = [UIColor orangeColor];
 }
 
 
