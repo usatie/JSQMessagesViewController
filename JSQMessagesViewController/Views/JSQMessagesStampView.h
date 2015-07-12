@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JSQMessagesStampView : UIView
+@interface JSQMessagesStampView:UIView <UICollectionViewDataSource,UICollectionViewDelegate>
+@property (weak, nonatomic) IBOutlet UICollectionView *stampCollectionView;
+@property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *stampCollectionViewFlowLayout;
 
 @end

@@ -485,6 +485,7 @@
     /**
      *  Override point for customizing cells
      */
+    NSLog(@"demo cellfor index path = %@",indexPath);
     JSQMessagesCollectionViewCell *cell = (JSQMessagesCollectionViewCell *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
     
     /**

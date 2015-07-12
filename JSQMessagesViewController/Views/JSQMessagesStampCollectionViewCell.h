@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface JSQMessagesStampCollectionViewCell : UICollectionViewCell
-
+@property (weak, nonatomic) IBOutlet UILabel *stampLabel;
++ (UINib *)nib;
++ (NSString *)cellReuseIdentifier;
 @end
