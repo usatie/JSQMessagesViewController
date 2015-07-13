@@ -154,7 +154,8 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
                                                                  panGestureRecognizer:self.collectionView.panGestureRecognizer
                                                                              delegate:self];
     
-    self.stampView;
+    self.stampView.stampCellArray = [self stampArray];
+    self.stampView.delegate = self;
 }
 
 - (void)dealloc
@@ -325,6 +326,22 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 - (void)didPressAdditionalLeftButton:(UIButton *)sender
 {
 //    NSAssert(NO, @"Error! required method not implemented in subclass. Need to implement %s", __PRETTY_FUNCTION__);
+}
+
+- (void)didTouchStampAtIndexpath:(NSIndexPath *)indexpath
+{
+    NSAssert(NO, @"Error! required method not implemented in subclass. Need to implement %s", __PRETTY_FUNCTION__);
+}
+
+- (NSArray *)stampArray
+{
+    NSLog(@"please override stampArray method.");
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    for (int i = 0; i<24; i++) {
+        [arr addObject:[NSString stringWithFormat:@"row%d",i]];
+    }
+    
+    return arr;
 }
 
 - (void)finishSendingMessage

@@ -22,6 +22,7 @@
 #import "JSQMessagesCollectionViewFlowLayout.h"
 #import "JSQMessagesInputToolbar.h"
 #import "JSQMessagesKeyboardController.h"
+#import "JSQMessagesStampView.h"
 
 /**
  *  The `JSQMessagesViewController` class is an abstract class that represents a view controller whose content consists of
@@ -30,7 +31,7 @@
  *  @warning This class is intended to be subclassed. You should not use it directly.
  */
 @interface JSQMessagesViewController : UIViewController <JSQMessagesCollectionViewDataSource,
-                                                         JSQMessagesCollectionViewDelegateFlowLayout,
+                                                         JSQMessagesCollectionViewDelegateFlowLayout,JSQMessagesStampViewDelegate,
                                                          UITextViewDelegate>
 
 /**
@@ -220,6 +221,8 @@
  */
 - (void)didPressAccessoryButton:(UIButton *)sender;
 - (void)didPressAdditionalLeftButton:(UIButton *)sender;
+- (void)didTouchStampAtIndexpath:(NSIndexPath *)indexpath;
+- (NSArray *)stampArray;
 /**
  *  Animates the sending of a new message. See `finishSendingMessageAnimated:` for more details.
  *

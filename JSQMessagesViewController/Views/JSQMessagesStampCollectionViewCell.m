@@ -21,7 +21,6 @@
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    NSLog(@"initWithFrame cell");
     self = [super initWithFrame:frame];
     
     if (self) {
@@ -34,7 +33,6 @@
 - (void)awakeFromNib {
     // Initialization code
     [super awakeFromNib];
-    NSLog(@"awakeFromNib cell");
 }
 
 @end

@@ -362,7 +362,20 @@
     [self finishSendingMessageAnimated:YES];
 }
 
+- (void)didTouchStampAtIndexpath:(NSIndexPath *)indexpath
+{
+    NSLog(@"finally reached the most front view");
+}
 
+- (NSArray *)stampArray
+{
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    for (int i = 0; i<24; i++) {
+        [arr addObject:[NSString stringWithFormat:@"stamp %d",i]];
+    }
+    
+    return arr;
+}
 
 #pragma mark - JSQMessages CollectionView DataSource
 
