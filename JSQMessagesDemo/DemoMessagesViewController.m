@@ -367,7 +367,7 @@
     NSLog(@"finally reached the most front view");
 }
 
-- (NSArray *)stampArray
+- (NSArray *)stampTitleArray
 {
     NSMutableArray *arr = [[NSMutableArray alloc] init];
     for (int i = 0; i<24; i++) {

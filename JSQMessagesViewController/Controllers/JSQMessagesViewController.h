@@ -222,7 +222,7 @@
 - (void)didPressAccessoryButton:(UIButton *)sender;
 - (void)didPressAdditionalLeftButton:(UIButton *)sender;
 - (void)didTouchStampAtIndexpath:(NSIndexPath *)indexpath;
-- (NSArray *)stampArray;
+- (NSArray *)stampTitleArray;
 /**
  *  Animates the sending of a new message. See `finishSendingMessageAnimated:` for more details.
  *

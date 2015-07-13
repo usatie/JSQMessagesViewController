@@ -154,7 +154,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
                                                                  panGestureRecognizer:self.collectionView.panGestureRecognizer
                                                                              delegate:self];
     
-    self.stampView.stampCellArray = [self stampArray];
+    self.stampView.stampCellArray = [self stampTitleArray];
     self.stampView.delegate = self;
 }
 
@@ -333,9 +333,9 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     NSAssert(NO, @"Error! required method not implemented in subclass. Need to implement %s", __PRETTY_FUNCTION__);
 }
 
-- (NSArray *)stampArray
+- (NSArray *)stampTitleArray
 {
-    NSLog(@"please override stampArray method.");
+    NSLog(@"please override stampTitleArray method.");
     NSMutableArray *arr = [[NSMutableArray alloc] init];
     for (int i = 0; i<24; i++) {
         [arr addObject:[NSString stringWithFormat:@"row%d",i]];
